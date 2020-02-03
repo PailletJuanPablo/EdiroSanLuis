@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     fontSize: 24,
     fontFamily: 'Lato-Regular'
+  },
+  webContainer: {
+    minHeight: 210,
+    flex: 1,
   }
 });
 

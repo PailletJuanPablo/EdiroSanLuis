@@ -5,8 +5,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as React from 'react';
 import Trips from './trips/Trips';
 import ServiceNavigator from './services/ServicesNavigation';
+import TripsNavigator from './trips/TripsNavigation';
+import { createStackNavigator, createAppContainer } from "react-navigation";
+import Company from './company/Company';
 
-const GeneralNavigator = createMaterialBottomTabNavigator(
+const GeneralNavigator = createStackNavigator(
   {
     Home: {
       screen: Home,
@@ -17,7 +20,7 @@ const GeneralNavigator = createMaterialBottomTabNavigator(
       }
     },
     Salidas: {
-      screen: Trips,
+      screen: TripsNavigator,
       navigationOptions: {
         title: 'Salidas',
         tabBarColor: '#a33381',
@@ -39,13 +42,25 @@ const GeneralNavigator = createMaterialBottomTabNavigator(
         tabBarColor: '#e82b6f',
         tabBarIcon: ({ tintColor }) => <Icon style={[{ color: tintColor }]} name="info" size={25} />
       }
+    },
+    Company: {
+      screen: Company,
+      navigationOptions: {
+        title: 'Company',
+        tabBarColor: '#e82b6f',
+        tabBarIcon: ({ tintColor }) => <Icon style={[{ color: tintColor }]} name="info" size={25} />
+      }
     }
   },
   {
     initialRouteName: 'Home',
     activeColor: '#f0edf6',
     inactiveColor: '#3e2465',
-    shifting: true
+    shifting: true,
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
   }
 );
 

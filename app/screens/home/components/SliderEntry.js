@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import { ParallaxImage } from 'react-native-snap-carousel';
 import styles from '../styles/SliderEntry.style';
@@ -14,16 +14,16 @@ export default class SliderEntry extends Component {
 
   get image() {
     const {
-      data: { illustration },
+      data: { illustration, title, subtitle },
       parallax,
       parallaxProps,
       even
     } = this.props;
 
-    return parallax ? (
+    return !parallax ? (
       <ParallaxImage
         source={illustration}
-        containerStyle={[styles.imageContainer, even ? styles.imageContainerEven : {}]}
+        containerStyle={styles.imageContainer}
         style={styles.image}
         parallaxFactor={0.35}
         showSpinner={true}
@@ -31,38 +31,28 @@ export default class SliderEntry extends Component {
         {...parallaxProps}
       />
     ) : (
-      <Image source={illustration} style={styles.image} />
+      <View style={styles.slideImageContainer}>
+        <ImageBackground source={illustration} style={{ width: '100%', height: '100%' }}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>{title}</Text>
+            <Text style={styles.subTitleText}>{subtitle}</Text>
+          </View>
+        </ImageBackground>
+      </View>
     );
   }
 
   render() {
     const {
-      data: { title, subtitle },
+      data: { title },
       even
     } = this.props;
 
-    const uppercaseTitle = title ? (
-      <Text style={[styles.title, even ? styles.titleEven : {}]} numberOfLines={2}>
-        {title.toUpperCase()}
-      </Text>
-    ) : (
-      false
-    );
-
     return (
-      <TouchableOpacity activeOpacity={1} style={styles.slideInnerContainer}>
+      <View activeOpacity={1} style={styles.slideInnerContainer}>
         <View style={styles.shadow} />
-        <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
-          {this.image}
-          <View style={[styles.radiusMask, even ? styles.radiusMaskEven : {}]} />
-        </View>
-        <View style={[styles.textContainer, even ? styles.textContainerEven : {}]}>
-          {uppercaseTitle}
-          <Text style={[styles.subtitle, even ? styles.subtitleEven : {}]} numberOfLines={2}>
-            {subtitle}
-          </Text>
-        </View>
-      </TouchableOpacity>
+        <View style={[styles.imageContainer]}>{this.image}</View>
+      </View>
     );
   }
 }

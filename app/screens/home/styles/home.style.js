@@ -53,6 +53,9 @@ export default StyleSheet.create({
     fontSize: 24,
     fontFamily: 'Lato-Regular'
   },
+  customFont:{
+    fontFamily: 'Lato-Bold'
+  },
   navTitleView: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,11 +75,25 @@ export default StyleSheet.create({
     fontSize: 60
   },
   gradient: {
+    height: 400,
     ...StyleSheet.absoluteFillObject
   },
   imageTop: {
-    width: 150,
+    width: 100,
+    height: 50,
     resizeMode: 'contain',
     alignSelf: 'center'
-  }
+  },
+  surface: {
+    padding: 8,
+    height: 140,
+    //  width: '40%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    elevation: 4,
+    margin: 8,
+    borderRadius: 10,
+  },
+  actionButtons: { flex: 1, flexDirection: 'row', alignContent: 'center', alignSelf: 'center' }
 });

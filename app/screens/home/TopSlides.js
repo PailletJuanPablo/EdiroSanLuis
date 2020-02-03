@@ -24,7 +24,6 @@ export default class TopSlides extends Component {
   }
 
   mainExample() {
-    const { slider1ActiveSlide } = this.state;
     return (
       <View style={styles.exampleContainer}>
         <Carousel

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, StatusBar, Button } from 'react-native';
+import {  View, ScrollView} from 'react-native';
 import styles from '../../styles/general';
-import getRequest from '../../helpers/api';
-import { Card, Title, Paragraph } from 'react-native-paper';
+import {getRequest} from '../../helpers/api';
+import { List } from 'react-native-paper';
 import OnlyTitleHeader from '../../components/OnlyTitleHeader';
 
 export default class Services extends Component {
@@ -14,9 +14,14 @@ export default class Services extends Component {
   }
 
   componentDidMount = async () => {
-    const data = await getRequest('https://jsonplaceholder.typicode.com/albums/2/photos');
-    this.setState({ services: data.slice(0, 20) });
-    console.log(this.state.services);
+    try {
+      const data = await getRequest('http://www.edirosanluis.gob.ar/index.php?option=com_jbackend&view=request&action=get&module=content&resource=categories&rootid=18');
+      this.setState({ services: data.categories });
+      console.log(this.state.services);
+    } catch (error) {
+      console.log('error from api', error)
+    }
+  
   };
 
   showServices() {
@@ -25,14 +30,11 @@ export default class Services extends Component {
       <ScrollView style={[styles.cardsContainter]} contentContainerStyle={styles.cardsContent}>
         {services.map((service, index) => {
           return (
-            <Card key={index} style={styles.cardsItem}>
-              <Card.Cover source={{ uri: service.thumbnailUrl }} />
-              <Card.Content>
-                <Title>{service.title}</Title>
-                <Paragraph>{service.title}</Paragraph>
-              </Card.Content>
-              <Button title="Go to Details" onPress={() => this.props.navigation.navigate('ServiceDetail')} />
-            </Card>
+            <List.Item key={index} 
+            title={service.title}
+            onPress={() => this.props.navigation.navigate('ServiceDetail', {service})}
+            right={props => <List.Icon {...props} icon="keyboard-arrow-right" />}
+          />
           );
         })}
       </ScrollView>
@@ -42,7 +44,7 @@ export default class Services extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <OnlyTitleHeader title="Servicios" subtitle="Conozca Ediro San Luis" backgroundColor="#9b265e" />
+        <OnlyTitleHeader title="Servicios" subtitle="Conozca Ediro San Luis" backgroundColor="#9b265e" backAction={this.props.navigation.popToTop} />
         {this.showServices()}
       </View>
     );

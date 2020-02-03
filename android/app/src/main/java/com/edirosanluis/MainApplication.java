@@ -1,12 +1,14 @@
-package com.terminal;
+package com.edirosanluis;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -27,10 +29,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new LinearGradientPackage(),
-            new FastImageViewPackage(),
+            new RNCWebViewPackage(),
             new VectorIconsPackage(),
-            new RNGestureHandlerPackage()
+            new MapsPackage(),
+            new LinearGradientPackage(),
+            new RNGestureHandlerPackage(),
+            new FastImageViewPackage()
       );
     }
 
